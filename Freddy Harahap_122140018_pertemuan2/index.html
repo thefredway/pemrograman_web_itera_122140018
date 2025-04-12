@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lock In Mode - Freddy Harahap Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <header class="flex justify-between items-center mb-8 fade-in">
+        <div>
+          <h1 class="text-3xl font-bold text-indigo-500 flex items-center">
+            <iconify-icon icon="mdi:lock" class="mr-2"></iconify-icon>
+            LOCK IN MODE
+          </h1>
+          <p class="text-gray-400">No pain. No gain.</p>
+        </div>
+        <div class="text-right">
+          <div id="datetime" class="text-xl font-medium"></div>
+          <div id="weather" class="text-gray-400 flex items-center justify-end">
+            <span class="loading">Loading weather...</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="bg-gray-800 rounded-xl p-4 mb-8 text-center fade-in">
+        <h3 class="text-xl font-semibold mb-2 text-indigo-400">
+          YOU HAVE TO LOCK IN!
+        </h3>
+        <div class="aspect-w-16 aspect-h-9 max-w-md mx-auto">
+          <blockquote
+            class="tiktok-embed"
+            cite="https://www.tiktok.com/@le_sserafim/video/7487539963232259334"
+            data-video-id="7487539963232259334"
+            style="max-width: 605px; min-width: 325px"
+          >
+            <section>
+              <a
+                target="_blank"
+                title="@le_sserafim"
+                href="https://www.tiktok.com/@le_sserafim?refer=embed"
+                >@le_sserafim</a
+              >
+              lock in✊
+              <a
+                title="le_sserafim"
+                target="_blank"
+                href="https://www.tiktok.com/tag/le_sserafim?refer=embed"
+                >#LE_SSERAFIM</a
+              >
+              <a
+                title="르세라핌"
+                target="_blank"
+                href="https://www.tiktok.com/tag/%EB%A5%B4%EC%84%B8%EB%9D%BC%ED%95%8C?refer=embed"
+                >#르세라핌</a
+              >
+              <a
+                title="kimchaewon"
+                target="_blank"
+                href="https://www.tiktok.com/tag/kimchaewon?refer=embed"
+                >#KIMCHAEWON</a
+              >
+              <a
+                title="김채원"
+                target="_blank"
+                href="https://www.tiktok.com/tag/%EA%B9%80%EC%B1%84%EC%9B%90?refer=embed"
+                >#김채원</a
+              >
+              <a
+                target="_blank"
+                title="♬ original sound - mo"
+                href="https://www.tiktok.com/music/original-sound-7483421328172370718?refer=embed"
+                >♬ original sound - mo</a
+              >
+            </section>
+          </blockquote>
+        </div>
+        <script async src="https://www.tiktok.com/embed.js"></script>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-gray-800 rounded-xl p-6 fade-in">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold flex items-center">
+              <iconify-icon
+                icon="mdi:calendar-clock"
+                class="mr-2 text-blue-400"
+              ></iconify-icon>
+              Jadwal Kuliah
+            </h2>
+            <button
+              id="addScheduleBtn"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg text-sm flex items-center"
+            >
+              <iconify-icon icon="mdi:plus" class="mr-1"></iconify-icon> Tambah
+            </button>
+          </div>
+          <div class="flex mb-4">
+            <button
+              id="todaySchedule"
+              class="bg-gray-700 px-3 py-1 rounded-l-lg text-sm font-medium"
+            >
+              Hari Ini
+            </button>
+            <button
+              id="weeklySchedule"
+              class="bg-gray-600 px-3 py-1 rounded-r-lg text-sm font-medium"
+            >
+              Mingguan
+            </button>
+          </div>
+          <div id="scheduleContainer" class="space-y-3"></div>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl p-6 fade-in">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold flex items-center">
+              <iconify-icon
+                icon="mdi:format-list-checks"
+                class="mr-2 text-green-400"
+              ></iconify-icon>
+              Daftar Tugas
+            </h2>
+            <button
+              id="addTaskBtn"
+              class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg text-sm flex items-center"
+            >
+              <iconify-icon icon="mdi:plus" class="mr-1"></iconify-icon> Tambah
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <select
+              id="taskFilter"
+              class="bg-gray-700 text-sm rounded-lg px-2 py-1 flex-grow min-w-[120px]"
+            >
+              <option value="all">Semua Tugas</option>
+              <option value="today">Hari Ini</option>
+              <option value="week">Minggu Ini</option>
+            </select>
+            <select
+              id="subjectFilter"
+              class="bg-gray-700 text-sm rounded-lg px-2 py-1 flex-1 min-w-[150px]"
+            >
+              <option value="all">Semua Mata Kuliah</option>
+            </select>
+            <select
+              id="statusFilter"
+              class="bg-gray-700 text-sm rounded-lg px-2 py-1 flex-grow min-w-[120px]"
+            >
+              <option value="all">Semua Status</option>
+              <option value="not-started">Belum</option>
+              <option value="in-progress">Sedang</option>
+              <option value="completed">Selesai</option>
+            </select>
+          </div>
+          <div id="taskContainer" class="space-y-3"></div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-gray-800 rounded-xl p-6 fade-in">
+            <h2 class="text-xl font-semibold mb-4 flex items-center">
+              <iconify-icon
+                icon="mdi:timer-outline"
+                class="mr-2 text-yellow-400"
+              ></iconify-icon>
+              Pomodoro Timer
+            </h2>
+            <div class="text-center mb-4">
+              <div id="timerDisplay" class="text-5xl font-mono font-bold my-4">
+                25:00
+              </div>
+              <div class="flex justify-center space-x-4 mb-4">
+                <button
+                  id="startTimer"
+                  class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg flex items-center"
+                >
+                  <iconify-icon icon="mdi:play" class="mr-1"></iconify-icon>
+                  Start
+                </button>
+                <button
+                  id="pauseTimer"
+                  class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center"
+                  disabled
+                >
+                  <iconify-icon icon="mdi:pause" class="mr-1"></iconify-icon>
+                  Pause
+                </button>
+                <button
+                  id="resetTimer"
+                  class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center"
+                >
+                  <iconify-icon icon="mdi:refresh" class="mr-1"></iconify-icon>
+                  Reset
+                </button>
+              </div>
+              <div class="flex justify-center space-x-2">
+                <button
+                  id="shortMode"
+                  class="bg-gray-700 px-3 py-1 rounded-l-lg text-sm font-medium"
+                >
+                  25/5
+                </button>
+                <button
+                  id="longMode"
+                  class="bg-gray-600 px-3 py-1 rounded-r-lg text-sm font-medium"
+                >
+                  50/10
+                </button>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="font-medium mb-2 flex items-center">
+                <iconify-icon
+                  icon="mdi:chart-line"
+                  class="mr-1 text-purple-400"
+                ></iconify-icon>
+                Statistik Hari Ini
+              </h3>
+              <div id="pomoStats" class="text-sm text-gray-300">
+                <p>Total sesi: <span id="todaySessions">0</span></p>
+                <p>
+                  Total waktu fokus: <span id="todayFocusTime">0</span> menit
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 fade-in">
+            <h2 class="text-xl font-semibold mb-4 flex items-center">
+              <iconify-icon
+                icon="mdi:note-edit-outline"
+                class="mr-2 text-purple-400"
+              ></iconify-icon>
+              Catatan Cepat
+            </h2>
+            <textarea
+              id="quickNote"
+              class="w-full bg-gray-700 rounded-lg p-3 text-sm mb-3 min-h-[100px]"
+              placeholder="Tulis catatan atau refleksi harian..."
+            ></textarea>
+            <button
+              id="saveNote"
+              class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm flex items-center ml-auto"
+            >
+              <iconify-icon icon="mdi:content-save" class="mr-1"></iconify-icon>
+              Simpan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="scheduleModal"
+        class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50"
+      >
+        <div class="bg-gray-800 rounded-xl p-6 w-full max-w-md">
+          <h3 class="text-lg font-semibold mb-4" id="scheduleModalTitle">
+            Tambah Jadwal Kuliah
+          </h3>
+          <form id="scheduleForm">
+            <input type="hidden" id="scheduleId" />
+            <div class="space-y-4">
+              <div>
+                <label for="courseName" class="block text-sm font-medium mb-1"
+                  >Mata Kuliah</label
+                >
+                <input
+                  type="text"
+                  id="courseName"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label for="courseDay" class="block text-sm font-medium mb-1"
+                  >Hari</label
+                >
+                <select
+                  id="courseDay"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                  required
+                >
+                  <option value="Senin">Senin</option>
+                  <option value="Selasa">Selasa</option>
+                  <option value="Rabu">Rabu</option>
+                  <option value="Kamis">Kamis</option>
+                  <option value="Jumat">Jumat</option>
+                  <option value="Sabtu">Sabtu</option>
+                  <option value="Minggu">Minggu</option>
+                </select>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="startTime" class="block text-sm font-medium mb-1"
+                    >Mulai</label
+                  >
+                  <input
+                    type="time"
+                    id="startTime"
+                    class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="endTime" class="block text-sm font-medium mb-1"
+                    >Selesai</label
+                  >
+                  <input
+                    type="time"
+                    id="endTime"
+                    class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="lecturer" class="block text-sm font-medium mb-1"
+                  >Dosen</label
+                >
+                <input
+                  type="text"
+                  id="lecturer"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                />
+              </div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+              <button
+                type="button"
+                id="cancelSchedule"
+                class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg text-sm"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm flex items-center"
+              >
+                <iconify-icon
+                  icon="mdi:content-save"
+                  class="mr-1"
+                ></iconify-icon>
+                Simpan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="taskModal"
+        class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50"
+      >
+        <div class="bg-gray-800 rounded-xl p-6 w-full max-w-md">
+          <h3 class="text-lg font-semibold mb-4" id="taskModalTitle">
+            Tambah Tugas
+          </h3>
+          <form id="taskForm">
+            <input type="hidden" id="taskId" />
+            <div class="space-y-4">
+              <div>
+                <label for="taskTitle" class="block text-sm font-medium mb-1"
+                  >Judul Tugas</label
+                >
+                <input
+                  type="text"
+                  id="taskTitle"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label for="taskSubject" class="block text-sm font-medium mb-1"
+                  >Mata Kuliah</label
+                >
+                <input
+                  type="text"
+                  id="taskSubject"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label for="taskDeadline" class="block text-sm font-medium mb-1"
+                  >Deadline</label
+                >
+                <input
+                  type="datetime-local"
+                  id="taskDeadline"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label for="taskStatus" class="block text-sm font-medium mb-1"
+                  >Status</label
+                >
+                <select
+                  id="taskStatus"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm"
+                  required
+                >
+                  <option value="not-started">Belum Dikerjakan</option>
+                  <option value="in-progress">Sedang Dikerjakan</option>
+                  <option value="completed">Selesai</option>
+                </select>
+              </div>
+              <div>
+                <label for="taskNotes" class="block text-sm font-medium mb-1"
+                  >Catatan</label
+                >
+                <textarea
+                  id="taskNotes"
+                  class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm min-h-[80px]"
+                ></textarea>
+              </div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+              <button
+                type="button"
+                id="cancelTask"
+                class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg text-sm"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-sm flex items-center"
+              >
+                <iconify-icon
+                  icon="mdi:content-save"
+                  class="mr-1"
+                ></iconify-icon>
+                Simpan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
