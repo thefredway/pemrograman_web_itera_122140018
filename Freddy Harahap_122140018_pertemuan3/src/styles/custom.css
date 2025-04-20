@@ -1,0 +1,227 @@
+/* Override variabel CSS */
+/* Pada file ini, digunakan styling Bulma CSS secara CDN, bukan secara defaultnya yaitu Sass*/
+/* Bulma CSS perlu di-override seperti di bawah ini agar dapat diatur warna sesuai 
+dengan apa yang diinginkan dan tidak menggunakan warna default */
+:root {
+  --primary: #2e7d32;
+  --link: #1b5e20;
+  --success: #4caf50;
+  --info: #1976d2;
+  --warning: #ffa000;
+}
+
+/* ===== Navbar ===== */
+.navbar.is-primary {
+  background-color: var(--primary);
+}
+
+.navbar .navbar-item {
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.navbar .navbar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.navbar-burger span {
+  background-color: #fff;
+}
+
+/* Navbar untuk mobile */
+.navbar-menu.is-active {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-menu {
+    background-color: var(--primary);
+    padding: 1rem;
+  }
+}
+
+/* ===== Footer ===== */
+.footer {
+  background-color: var(--primary);
+  padding: 2rem 1.5rem;
+  margin-top: 3rem;
+}
+
+.footer.has-background-primary {
+  background-color: var(--primary) !important;
+}
+
+/* ===== Book Card ===== */
+/* Efek hover untuk card buku terutama untuk BookCard */
+.book-card {
+  transition: all 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.book-card.owned {
+  border-left: 4px solid var(--success);
+}
+
+.book-card.reading {
+  border-left: 4px solid var(--info);
+}
+
+.book-card.wishlist {
+  border-left: 4px solid var(--warning);
+}
+
+/* ===== Buttons ===== */
+.button.is-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.button.is-primary:hover {
+  background-color: #1b5e20;
+  border-color: #1b5e20;
+}
+
+.button.is-warning {
+  background-color: var(--warning);
+  border-color: var(--warning);
+  color: #fff;
+}
+
+.button.is-warning:hover {
+  background-color: #fb8c00;
+  border-color: #fb8c00;
+}
+
+.button.is-light {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.button.is-light:hover {
+  background-color: #e0e0e0;
+  color: #111;
+}
+
+.button.is-warning.is-light {
+  background-color: #fff8e1;
+  color: #fb8c00;
+  border: 1px solid #fb8c00;
+}
+
+.button.is-warning.is-light:hover {
+  background-color: #ffe082;
+  color: #e65100;
+}
+
+.button.is-danger.is-light {
+  background-color: #ffebee;
+  color: #e53935;
+  border: 1px solid #e53935;
+}
+
+.button.is-danger.is-light:hover {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+}
+
+/* ===== Tags ===== */
+.tag.is-success {
+  background-color: var(--success);
+  color: #fff;
+}
+
+.tag.is-info {
+  background-color: var(--info);
+  color: #fff;
+}
+
+.tag.is-warning {
+  background-color: var(--warning);
+  color: #fff;
+}
+
+.tag.is-light {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* ===== Card Content ===== */
+.card .card-content .title {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.card .card-content .subtitle {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.card .content .tag {
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+/* ===== Rating Stars ===== */
+.rating-stars {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rating-stars svg {
+  transition: transform 0.2s ease;
+}
+
+.rating-stars svg:hover {
+  transform: scale(1.2);
+}
+
+/* ===== Stats Page ===== */
+.notification {
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.notification:hover {
+  transform: translateY(-4px);
+}
+
+/* ===== Layout Umum ===== */
+main.container {
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Home Page ===== */
+.book-form {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Tambahkan ini pada BookForm component wrapper */
+.column.is-one-third > * {
+  width: 100%;
+}
+
+/* ===== Responsive Fixes ===== */
+@media screen and (max-width: 768px) {
+  .columns {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 100% !important;
+  }
+}
